@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary p-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/login">
+        <img src="static/nalco-logo.png" alt="Nalco company logo with bold blue text Nalco and a stylized swoosh, displayed on a white background in the website navigation bar" height="32" width="150" class="d-inline-block align-text-top">
+    
+    </a>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Links
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="/login">Login</a></li>
+          <li><a class="dropdown-item" href="/register">Register</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="/help/register">Help</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+  <div class="container mt-5">
+    <h3 class="mb-4">Register</h3>
+    <form method="POST" action="/register">
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+      <a href="/login" class="btn btn-link">Back to Login</a>
+    </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-warning mt-3">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+  </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <footer class="bg-dark text-white text-center py-2 fixed-bottom">
+  <div class="container">
+    <small>
+      &copy; {{ year }} NALCO Data Center Management System &nbsp;|&nbsp;
+      <a href="/help/register" class="text-light text-decoration-underline">Help</a>
+    </small>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Center Dashboard</title>
+</head>
+<body>
+  <h2>Welcome to the Data Center</h2>
+  <a href="/logout">Logout</a>
+  <div id="server-data"></div>
+
+  <script>
+    fetch('/api/data')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('server-data');
+        data.servers.forEach(server => {
+          const div = document.createElement('div');
+          div.innerText = `${server.name} (${server.ip}) — ${server.status}`;
+          container.appendChild(div);
+        });
+      });
+  </script>
+</body>
+</html>
