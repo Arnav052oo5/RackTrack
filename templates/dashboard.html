@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — NALCO Data Center</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="dc-nav">
+  <a class="dc-nav-brand" href="/dashboard">
+    <div class="brand-icon">⬡</div>
+    <div>
+      <div class="brand-text">NALCO DCM</div>
+      <div class="brand-sub">Data Center Management</div>
+    </div>
+  </a>
+  <div class="dc-nav-right">
+    <div class="dc-user-badge">
+      <span>{{ session.get('username') }}</span>
+      <span class="role-pill {% if session.get('role') != 'admin' %}user{% endif %}">
+        {{ session.get('role') | upper }}
+      </span>
+    </div>
+    <a href="/logout" class="btn-dc btn-dc-ghost btn-dc-sm">Logout</a>
+  </div>
+</nav>
+
+<!-- TOOLBAR -->
+<div class="dc-toolbar">
+  <span class="dc-toolbar-title">RACKS</span>
+  <input type="text" id="searchBox" class="dc-input" placeholder="Search name or IP…" style="max-width:220px; padding:6px 12px; font-size:13px;">
+  <select id="statusFilter" class="dc-input" style="max-width:160px; padding:6px 12px; font-size:13px;">
+    <option value="">All Statuses</option>
+    <option value="Active">Active</option>
+    <option value="Down">Down</option>
+    <option value="Maintenance">Maintenance</option>
+    <option value="Unreachable">Unreachable</option>
+  </select>
+  <div class="dc-toolbar-spacer"></div>
+  {% if session.get('role') == 'admin' %}
+  <input type="number" id="newRack" placeholder="Rack #" class="dc-input" style="max-width:100px; padding:6px 10px; font-size:13px;">
+  <button class="btn-dc btn-dc-primary btn-dc-sm" onclick="addRack()">+ Add Rack</button>
+  <button class="btn-dc btn-dc-danger btn-dc-sm" onclick="showDeleteRackForm()">✕ Delete Rack</button>
+  {% endif %}
+</div>
+
+<!-- MAIN -->
+<div class="dc-main">
+
+  <!-- STATS -->
+  <div class="dc-stats" id="statsBar"></div>
+
+  <!-- RACK MAP -->
+  <div class="dc-rack-grid" id="map"></div>
+
+  <!-- DETAIL / ADD PANEL -->
+  <div class="dc-panel" id="detailPanel" style="display:none;">
+    <div class="dc-panel-header">
+      <span class="dc-panel-title" id="panelTitle">Server Details</span>
+      <button class="btn-dc btn-dc-ghost btn-dc-sm" onclick="closePanel()">✕ Close</button>
+    </div>
+    <div class="dc-panel-body" id="panelBody"></div>
+  </div>
+
+</div>
+
+<footer class="dc-footer">
+  &copy; {{ year }} NALCO Data Center Management System &nbsp;·&nbsp;
+  <a href="/help/dashboard">Help</a>
+</footer>
+
+<script>
+  const isAdmin = {{ 'true' if session.get('role') == 'admin' else 'false' }};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

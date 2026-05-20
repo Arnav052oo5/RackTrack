@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — NALCO Data Center</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-page">
+
+  <nav class="dc-nav">
+    <a class="dc-nav-brand" href="/login">
+      <div class="brand-icon">⬡</div>
+      <div>
+        <div class="brand-text">NALCO DCM</div>
+        <div class="brand-sub">Data Center Management</div>
+      </div>
+    </a>
+    <div class="dc-nav-right">
+      <a href="/register" class="btn-dc btn-dc-ghost btn-dc-sm">Register</a>
+    </div>
+  </nav>
+
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-icon">🖥</div>
+        <h2>NALCO DATA CENTER</h2>
+        <p>Sign in to your account to continue</p>
+      </div>
+
+      <form method="POST" action="/login">
+        <div class="dc-field">
+          <label class="dc-label" for="username">Username</label>
+          <input class="dc-input" type="text" id="username" name="username" placeholder="Enter username" required autofocus>
+        </div>
+        <div class="dc-field">
+          <label class="dc-label" for="password">Password</label>
+          <input class="dc-input" type="password" id="password" name="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn-dc btn-dc-primary" style="width:100%; justify-content:center; padding:11px;">
+          Sign In →
+        </button>
+      </form>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="dc-alert dc-alert-danger">⚠ {{ messages[0] }}</div>
+        {% endif %}
+      {% endwith %}
+
+      <p style="text-align:center; margin-top:1.5rem; font-size:13px; color:var(--muted);">
+        No account? <a href="/register" class="dc-link">Create one</a>
+        &nbsp;·&nbsp;
+        <a href="/help/login" class="dc-link">Help</a>
+      </p>
+    </div>
+  </div>
+
+  <footer class="dc-footer">
+    &copy; {{ year }} NALCO Data Center Management System
+  </footer>
+</body>
+</html>
